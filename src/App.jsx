@@ -29,7 +29,7 @@ function App() {
           <div className="aboutus_container">
           <AboutUs/>
           </div>
-          </div>
+        </div>
 
       </div>
       <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
