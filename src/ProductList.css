@@ -154,7 +154,20 @@ body {
 .cart{
     color: white;
     display: flex;
+    
 }
+
+#cartItem{
+    position:absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 20px;
+    color: white;
+    background-color: #045708;
+    border-radius: 50%;
+    padding: 5px 10px;
+}
+
 .cart_quantity_count{
     margin-top: 16px;
     /* background-color: red; */
