@@ -11,14 +11,16 @@ const CartItem = ({ onContinueShopping }) => {
   const calculateTotalAmount = () => {
     let totalCost = 0;
     cart.forEach((item) =>{
-       totalCost += item.quantity * item.cost;
+      const unitaryPrice =  item.cost? parseFloat(item.cost.replace(/[$,]/g, '')) : '0';
+
+       totalCost += item.quantity * unitaryPrice;
     });
     return totalCost;
  
   };
 
   const handleContinueShopping = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     onContinueShopping();
    
   };
@@ -46,7 +48,10 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-    return item.quantity*item.cost;
+   //Calculate the total for article
+    const unitaryPrice = parseFloat(item.cost.replace(/[$,]/g, ''));
+    return item.quantity*unitaryPrice;
+  
   };
 
   return (
@@ -64,7 +69,7 @@ const CartItem = ({ onContinueShopping }) => {
                 <span className="cart-item-quantity-value">{item.quantity}</span>
                 <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrement(item)}>+</button>
               </div>
-              <div className="cart-item-total">Total: ${calculateTotalCost(item)}</div>
+              <div className="cart-item-total">Total: ${calculateTotalCost(item).toFixed(2)}</div>
               <button className="cart-item-delete" onClick={() => handleRemove(item)}>Delete</button>
             </div>
           </div>
@@ -72,7 +77,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" onClick={handleContinueShopping}>Continue Shopping</button>
         <br />
         <button className="get-started-button1" onClick={handleCheckoutShopping}>Checkout</button>
       </div>

@@ -253,8 +253,10 @@ function ProductList() {
     };
 
     const handleContinueShopping = (e) => {
-        e.preventDefault();
+        //e.preventDefault();
+        setShowPlants(true)
         setShowCart(false);
+        console.log("handlecontinueShopping")
     };
 
     const handleAddToCart = (product) => {
