@@ -237,7 +237,21 @@
     background-color: #4caf50;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 20px;
   }
+
+  .get-started-button1:hover{
+    background-color: rgb(29, 97, 55);
+    color:rgb(255, 255, 255);
+
+  }
+
+  .get-started-button:hover{
+    background-color: #88bb36 !important;
+    color:black;
+  }
+
+  
+
   
