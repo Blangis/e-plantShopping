@@ -4,6 +4,7 @@ export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [], // Initialize items as an empty array
+    total: 0,
   },
   reducers: {
     addItem: (state, action) => {
@@ -26,12 +27,18 @@ export const CartSlice = createSlice({
       if(itemToUpdate) {
         itemToUpdate.quantity=quantity;
       }
-
-    
+    },
+    updateTotal: (state) => {
+      let total = 0;
+      state.items.forEach(item => {
+        const unitaryPrice = parseFloat(item.cost.replace(/[$,]/g, ''));
+        total += item.quantity * unitaryPrice;
+      });
+      state.total = total;
     },
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+export const { addItem, removeItem, updateQuantity, updateTotal } = CartSlice.actions;
 
 export default CartSlice.reducer;

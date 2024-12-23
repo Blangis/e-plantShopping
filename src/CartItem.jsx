@@ -3,21 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = ({ CartItems, onRemoveFromCart, onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let totalCost = 0;
-    cart.forEach((item) =>{
-      const unitaryPrice =  item.cost? parseFloat(item.cost.replace(/[$,]/g, '')) : '0';
+    cart.forEach(item => {
+      const unitaryPrice = item.cost ? parseFloat(item.cost.replace(/[^0-9.-]+/g, "")) : 0;
 
-       totalCost += item.quantity * unitaryPrice;
+        totalCost += item.quantity * unitaryPrice;
     });
-    return totalCost;
- 
-  };
+    return totalCost.toFixed(2); // Aseguramos que el total tenga dos decimales
+};
+
+
 
   const handleContinueShopping = (e) => {
     //e.preventDefault();
@@ -33,17 +34,21 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ ...item, quantity: item.quantity + 1 }));
+    dispatch(updateTotal()); // Actualizar el total después de incrementar la cantidad
   };
 
   const handleDecrement = (item) => {
-    if(item.quantity>1){
-      dispatch(updateQuantity({ ...item, quantity:item.quantity-1}));
-
+    if (item.quantity > 1) {
+        dispatch(updateQuantity({ ...item, quantity: item.quantity - 1 }));
+    } else {
+        handleRemove(item); // Elimina el artículo si la cantidad llega a 1
     }
-  };
+    dispatch(updateTotal());
+};
 
   const handleRemove = (item) => {
     dispatch(removeItem(item));
+    dispatch(updateTotal()); // Actualizar el total después de eliminar el producto
   };
 
   // Calculate total cost based on quantity for an item
