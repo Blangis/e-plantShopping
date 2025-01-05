@@ -7,9 +7,11 @@ import AboutUs from './AboutUs';
 function App() {
 
   const [showProductList, setShowProductList] = useState(false);
+  const [showAboutUs, setShowAboutUs] = useState(true); // Nuevo estado
 
   const handleGetStartedClick = () => {
     setShowProductList(true);
+    setShowAboutUs(false); // Oculta AboutUs cuando se hace clic en Get Started
   };
 
   return (
@@ -26,11 +28,12 @@ function App() {
               Get Started
             </button>
           </div>
-          <div className="aboutus_container">
-            <AboutUs />
-          </div>
+          {showAboutUs && ( // Mostrar AboutUs solo si showAboutUs es true
+            <div className="aboutus_container">
+              <AboutUs />
+            </div>
+          )}
         </div>
-
       </div>
       <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
         <ProductList />
